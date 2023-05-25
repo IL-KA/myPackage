@@ -1,4 +1,4 @@
-package myPackage
+package matrix
 
 import (
     "fmt"
