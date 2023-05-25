@@ -73,7 +73,7 @@ func Multiply(a, b Matrix) Matrix {
 func TimeAdd(a, b Matrix) (Matrix, time.Duration) {
     start := time.Now()
     c, err := Add(a, b)
-    elapsed := time.Since(start)
+    elapsed := time.Now() - start
     return c, elapsed
 }
 
@@ -81,6 +81,6 @@ func TimeAdd(a, b Matrix) (Matrix, time.Duration) {
 func TimeMultiply(a, b Matrix) (Matrix, time.Duration) {
     start := time.Now()
     c := Multiply(a, b)
-    elapsed := time.Since(start)
+    elapsed := time.Now() - start
     return c, elapsed
 }
