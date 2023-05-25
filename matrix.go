@@ -69,9 +69,9 @@ func Multiply(a, b Matrix) Matrix {
     return c
 }
 
-func transposeMatrix(matrix Matrix) Matrix {
-	rows := len(matrix)
-	cols := len(matrix[0])
+func transpose(a Matrix) Matrix {
+	rows := len(a)
+	cols := len(a[0])
 
 	transposed := make(Matrix, cols)
 	for i := range transposed {
@@ -84,7 +84,7 @@ func transposeMatrix(matrix Matrix) Matrix {
 		go func(col int) {
 			defer wg.Done()
 			for row := 0; row < rows; row++ {
-				transposed[col][row] = matrix[row][col]
+				transposed[col][row] = a[row][col]
 			}
 		}(i)
 	}
@@ -96,8 +96,8 @@ func transposeMatrix(matrix Matrix) Matrix {
 // TimeAdd returns the sum of two matrices and the time taken to compute it using multiple goroutines.
 func TimeAdd(a, b Matrix) (Matrix, time.Duration) {
     start := time.Now()
-    c, err := Add(a, b)
-    elapsed := time.Now() - start
+    c := Add(a, b)
+	elapsed := time.Since(start)
     return c, elapsed
 }
 
@@ -105,6 +105,14 @@ func TimeAdd(a, b Matrix) (Matrix, time.Duration) {
 func TimeMultiply(a, b Matrix) (Matrix, time.Duration) {
     start := time.Now()
     c := Multiply(a, b)
-    elapsed := time.Now() - start
+    elapsed := time.Since(start)
     return c, elapsed
+}
+
+// TimeTranspose returns the new transposed matrix and the time taken to compute it 
+func TimeTranspose(a Matrix) (Matrix, time.Duration) {
+    start := time.Now()
+    transposed := transpose(a)
+	elapsed := time.Since(start)
+    return transposed, elapsed
 }
