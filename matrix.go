@@ -28,7 +28,7 @@ func New(rows, cols int) Matrix {
 func Add(a, b Matrix) Matrix {
     if len(a) != len(b) || len(a[0]) != len(b[0]) {
     	fmt.Println("matrix sizes do not match")
-	return nil
+	return
     }
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
@@ -51,7 +51,7 @@ func Add(a, b Matrix) Matrix {
 func Multiply(a, b Matrix) Matrix {
     if len(a[0]) != len(b) {
         fmt.Println("matrix sizes do not match")
-	return nil
+	return
     }
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
