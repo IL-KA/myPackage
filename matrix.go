@@ -48,7 +48,7 @@ func Add(a, b Matrix) (Matrix, error) {
 
 // Multiply returns the product of two matrices where the number of columns in the first matrix
 // matches the number of rows in the second matrix using multiple goroutines.
-func Multiply(a, b Matrix) Matrix {
+func Multiply(a, b Matrix)  (Matrix, error) {
     if len(a[0]) != len(b) {
         fmt.Println("matrix sizes do not match")
 	return
