@@ -25,10 +25,10 @@ func New(rows, cols int) Matrix {
 }
 
 // Add returns the sum of two matrices of the same size using multiple goroutines.
-func Add(a, b Matrix) (Matrix, error) {
+func Add(a, b Matrix) (Matrix) {
     if len(a) != len(b) || len(a[0]) != len(b[0]) {
     	fmt.Println("matrix sizes do not match")
-	return
+	return nil
     }
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
@@ -48,10 +48,10 @@ func Add(a, b Matrix) (Matrix, error) {
 
 // Multiply returns the product of two matrices where the number of columns in the first matrix
 // matches the number of rows in the second matrix using multiple goroutines.
-func Multiply(a, b Matrix)  (Matrix, error) {
+func Multiply(a, b Matrix)  (Matrix) {
     if len(a[0]) != len(b) {
         fmt.Println("matrix sizes do not match")
-	return
+	return nil
     }
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
