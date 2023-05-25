@@ -25,7 +25,7 @@ func New(rows, cols int) Matrix {
 }
 
 // Add returns the sum of two matrices of the same size using multiple goroutines.
-func Add(a, b Matrix) Matrix {
+func Add(a, b Matrix) (Matrix, error) {
     if len(a) != len(b) || len(a[0]) != len(b[0]) {
     	fmt.Println("matrix sizes do not match")
 	return
