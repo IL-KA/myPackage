@@ -25,9 +25,9 @@ func New(rows, cols int) Matrix {
 }
 
 // Add returns the sum of two matrices of the same size using multiple goroutines.
-func Add(a, b Matrix) (Matrix, error) {
+func Add(a, b Matrix) Matrix {
     if len(a) != len(b) || len(a[0]) != len(b[0]) {
-        return nil, fmt.Errorf("matrix sizes do not match")
+        return fmt.Errorf("matrix sizes do not match")
     }
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
@@ -42,14 +42,14 @@ func Add(a, b Matrix) (Matrix, error) {
         }(i)
     }
     wg.Wait()
-    return c, nil
+    return c
 }
 
 // Multiply returns the product of two matrices where the number of columns in the first matrix
 // matches the number of rows in the second matrix using multiple goroutines.
-func Multiply(a, b Matrix) (Matrix, error) {
+func Multiply(a, b Matrix) Matrix {
     if len(a[0]) != len(b) {
-        return nil, fmt.Errorf("matrix sizes do not match")
+        return fmt.Errorf("matrix sizes do not match")
     }
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
@@ -66,21 +66,21 @@ func Multiply(a, b Matrix) (Matrix, error) {
         }(i)
     }
     wg.Wait()
-    return c, nil
+    return c
 }
 
 // TimeAdd returns the sum of two matrices and the time taken to compute it using multiple goroutines.
-func TimeAdd(a, b Matrix) (Matrix, time.Duration, error) {
+func TimeAdd(a, b Matrix) (Matrix, time.Duration) {
     start := time.Now()
     c, err := Add(a, b)
     elapsed := time.Since(start)
-    return c, elapsed, err
+    return c, elapsed
 }
 
 // TimeMultiply returns the product of two matrices and the time taken to compute it using multiple goroutines.
-func TimeMultiply(a, b Matrix) (Matrix, time.Duration, error) {
+func TimeMultiply(a, b Matrix) (Matrix, time.Duration) {
     start := time.Now()
-    c, err := Multiply(a, b)
+    c := Multiply(a, b)
     elapsed := time.Since(start)
-    return c, elapsed, err
+    return c, elapsed
 }
