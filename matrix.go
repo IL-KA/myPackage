@@ -110,7 +110,7 @@ func TimeMultiply(a, b Matrix) (Matrix, time.Duration) {
     return c, elapsed
 }
 
-// TimeTranspose returns the new transposed matrix and the time taken to compute it 
+// TimeTranspose returns the new transposed matrix and the time taken to compute it. 
 func TimeTranspose(a Matrix) (Matrix, time.Duration) {
     start := time.Now()
     transposed := Transpose(a)
