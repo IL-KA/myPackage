@@ -69,6 +69,30 @@ func Multiply(a, b Matrix) Matrix {
     return c
 }
 
+func transposeMatrix(matrix Matrix) Matrix {
+	rows := len(matrix)
+	cols := len(matrix[0])
+
+	transposed := make(Matrix, cols)
+	for i := range transposed {
+		transposed[i] = make([]float64, rows)
+	}
+
+	var wg sync.WaitGroup
+	for i := 0; i < cols; i++ {
+		wg.Add(1)
+		go func(col int) {
+			defer wg.Done()
+			for row := 0; row < rows; row++ {
+				transposed[col][row] = matrix[row][col]
+			}
+		}(i)
+	}
+	wg.Wait()
+
+	return transposed
+}
+
 // TimeAdd returns the sum of two matrices and the time taken to compute it using multiple goroutines.
 func TimeAdd(a, b Matrix) (Matrix, time.Duration) {
     start := time.Now()
