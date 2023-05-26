@@ -33,7 +33,7 @@ func Add(a, b Matrix) (Matrix) {
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
     for i := range a {
-        wg.Add(1)
+        wg.Add(8)
         go func(i int) {
             defer wg.Done()
             c[i] = make([]float64, len(a[i]))
@@ -56,7 +56,7 @@ func Multiply(a, b Matrix)  (Matrix) {
     c := make(Matrix, len(a))
     var wg sync.WaitGroup
     for i := range a {
-        wg.Add(1)
+        wg.Add(8)
         go func(i int) {
             defer wg.Done()
             c[i] = make([]float64, len(b[0]))
@@ -83,7 +83,7 @@ func Transpose(a Matrix) Matrix {
 
 	var wg sync.WaitGroup
 	for i := 0; i < cols; i++ {
-		wg.Add(1)
+		wg.Add(8)
 		go func(col int) {
 			defer wg.Done()
 			for row := 0; row < rows; row++ {
